@@ -1,0 +1,16 @@
+FROM bayrell/core:stage0
+
+
+ADD files/etc /etc
+ADD files/app /var/www/app
+ADD files/run.sh /root/run.sh
+
+
+RUN cd ~; \
+	chmod +x /root/run.sh; \
+	echo "Ok"
+
+
+
+#CMD ["bash"]
+CMD ["/root/run.sh"]
