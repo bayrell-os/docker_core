@@ -1,6 +1,5 @@
 FROM bayrell/core:stage0
 
-
 ADD files/etc /etc
 ADD files/app /var/www/app
 ADD files/run.sh /root/run.sh
