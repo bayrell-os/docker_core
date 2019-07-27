@@ -1,0 +1,14 @@
+FROM bayrell/nginx_route:stage0
+
+ADD files/etc /etc
+ADD files/root /root
+ADD download/consul-template /usr/sbin/consul-template
+
+RUN cd ~; \
+	chmod +x /root/consul.sh; \
+	chmod +x /root/run.sh; \
+	echo "Ok"
+
+
+EXPOSE 80
+CMD ["/root/run.sh"]

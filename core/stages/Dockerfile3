@@ -10,5 +10,5 @@ RUN cd ~; \
 	chmod +x /root/run.sh; \
 	echo "Ok"
 
-
+EXPOSE 80
 CMD ["/root/run.sh"]

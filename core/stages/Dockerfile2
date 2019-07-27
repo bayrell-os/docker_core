@@ -1,4 +1,4 @@
-FROM bayrell/core:stage2
+FROM bayrell/core:stage1
 
 RUN cd ~; \
 	echo "[1] Install packages"; \

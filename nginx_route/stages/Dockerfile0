@@ -1,0 +1,13 @@
+FROM alpine:3.10
+
+RUN cd ~; \
+	echo "" > /etc/apk/repositories; \
+	echo "https://mirror.yandex.ru/mirrors/alpine/v3.10/main" >> /etc/apk/repositories; \
+	echo "https://mirror.yandex.ru/mirrors/alpine/v3.10/community" >> /etc/apk/repositories; \
+	apk update; \
+	apk add bash nano mc wget nginx supervisor curl; \
+	echo "export EDITOR=nano" > /etc/profile.d/editor_nano; \
+	mkdir /run/nginx/; \
+	echo "Ok"
+
+CMD ["/bin/bash"]

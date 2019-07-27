@@ -23,13 +23,19 @@ case "$1" in
 		cd ..
 	;;
 	
+	stage3)
+		docker build ./ -t bayrell/core:stage3 --file stages/Dockerfile3
+		docker tag bayrell/core:stage3 172.20.10.25/bayrell_core:latest
+		cd ..
+	;;
+	
 	final)
-		docker tag bayrell/core:stage2 172.20.10.25/bayrell_core:latest
+		docker tag bayrell/core:stage3 172.20.10.25/bayrell_core:latest
 		cd ..
 	;;
 	
 	*)
-		echo "Usage: $0 {stage0|stage1|stage2|final}"
+		echo "Usage: $0 {stage0|stage1|stage2|stage3|final}"
 		RETVAL=1
 
 esac
