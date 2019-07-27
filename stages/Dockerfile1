@@ -1,15 +1,6 @@
-FROM bayrell/core:stage0
-
-ADD files/etc /etc
-ADD files/app /var/www/app
-ADD files/run.sh /root/run.sh
-
+FROM bayrell/core:stage1
 
 RUN cd ~; \
-	chmod +x /root/run.sh; \
+	echo "[1] Install core components"; \
+	yum install -y mc nano supervisor less net-tools bind-utils; \
 	echo "Ok"
-
-
-
-#CMD ["bash"]
-CMD ["/root/run.sh"]

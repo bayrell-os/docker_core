@@ -31,10 +31,6 @@ RUN cd ~; \
 	sed -i "s|;listen.owner =.*|listen.owner = nginx|g" /etc/opt/remi/php71/php-fpm.d/www.conf; \
 	sed -i "s|;listen.group =.*|listen.group = nginx|g" /etc/opt/remi/php71/php-fpm.d/www.conf; \
 	sed -i "s|;listen.mode =.*|listen.mode = 0660|g" /etc/opt/remi/php71/php-fpm.d/www.conf; \
-	echo "[8] Install NodeJS"; \
-	curl -sL https://rpm.nodesource.com/setup_10.x | bash -; \
-	yum install nodejs; \
-	npm install -g bayrell-lang-compiler; \
 	chmod +x /root/run.sh; \
 	echo "Ok"
 

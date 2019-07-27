@@ -7,28 +7,29 @@ BASE_PATH=`dirname $SCRIPT_PATH`
 RETVAL=0
 
 case "$1" in
-
-	docker)
-		docker build ./ -t bayrell/core --file stages/Dockerfile
-		#docker tag bayrell/core 172.20.10.25/bayrell_core
-		cd ..
-	;;
-
+	
 	stage0)
 		docker build ./ -t bayrell/core:stage0 --file stages/Dockerfile0
-		#docker tag bayrell/core:stage0 172.20.10.25/bayrell_core:stage0
 		cd ..
 	;;
 
 	stage1)
 		docker build ./ -t bayrell/core:stage1 --file stages/Dockerfile1
-		#docker tag bayrell/core:stage1 172.20.10.25/bayrell_core:stage1
 		cd ..
 	;;
-
+	
+	stage2)
+		docker build ./ -t bayrell/core:stage2 --file stages/Dockerfile2
+		cd ..
+	;;
+	
+	final)
+		docker tag bayrell/core:stage2 172.20.10.25/bayrell_core:latest
+		cd ..
+	;;
 	
 	*)
-		echo "Usage: $0 {docker|stage0|stage1}"
+		echo "Usage: $0 {stage0|stage1|stage2|final}"
 		RETVAL=1
 
 esac
