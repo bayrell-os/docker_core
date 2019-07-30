@@ -18,23 +18,18 @@ case "$1" in
 	;;
 	
 	stage0)
-		docker build ./ -t bayrell/nginx_route:stage0 --file stages/Dockerfile0
-		cd ..
-	;;
-
-	stage1)
-		docker build ./ -t bayrell/nginx_route:stage1 --file stages/Dockerfile1
-		docker tag bayrell/nginx_route:stage1 172.20.10.25/bayrell_nginx_route:latest
+		docker build ./ -t bayrell/nginx_route:latest --file stages/Dockerfile0
+		docker tag bayrell/nginx_route:latest 172.20.10.25/bayrell_nginx_route:latest
 		cd ..
 	;;
 	
 	final)
-		docker tag bayrell/nginx_route:stage1 172.20.10.25/bayrell_nginx_route:latest
+		docker tag bayrell/nginx_route:latest 172.20.10.25/bayrell_nginx_route:latest
 		cd ..
 	;;
 	
 	*)
-		echo "Usage: $0 {download|stage0|stage1|final}"
+		echo "Usage: $0 {download|stage0|final}"
 		RETVAL=1
 
 esac

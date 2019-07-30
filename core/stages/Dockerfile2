@@ -1,4 +1,4 @@
-FROM bayrell/core:stage1
+FROM bayrell/core:stage_os_update
 
 RUN cd ~; \
 	echo "[1] Install packages"; \
@@ -6,10 +6,4 @@ RUN cd ~; \
 	ln -s /usr/bin/php71 /usr/bin/php; \
 	ln -s /usr/bin/php71-cgi /usr/bin/php-cgi; \
 	npm install -g bayrell-lang-compiler; \
-	echo "[2] Settings PHP"; \
-	sed -i "s|;date.timezone =|date.timezone = Asia/Almaty|g" /etc/opt/remi/php71/php.ini; \
-	sed -i "s|listen =.*|listen = /var/run/php71-fpm.sock|g" /etc/opt/remi/php71/php-fpm.d/www.conf; \
-	sed -i "s|;listen.owner =.*|listen.owner = nginx|g" /etc/opt/remi/php71/php-fpm.d/www.conf; \
-	sed -i "s|;listen.group =.*|listen.group = nginx|g" /etc/opt/remi/php71/php-fpm.d/www.conf; \
-	sed -i "s|;listen.mode =.*|listen.mode = 0660|g" /etc/opt/remi/php71/php-fpm.d/www.conf; \
 	echo "Ok"

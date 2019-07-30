@@ -23,7 +23,7 @@ fi
 while [ 1 ]; do
 	
 	# Register service in the consul
-	IP=`ifconfig ${INTERFACE} | grep inet | awk '{print $2}' | sed -n 1p`
+	IP=`ifconfig ${INTERFACE} | grep inet\ addr | awk '{print $2}' | cut -d ':' -f 2`
 	DATA="{
 		\"ID\": \"${HOSTNAME}\",
 		\"Name\": \"${SERVICE_NAME}\",
@@ -48,6 +48,9 @@ while [ 1 ]; do
 	
 	# Health check
 	curl -H "Content-Type: application/json" -X PUT http://${CONSUL_IP}/v1/agent/check/pass/service:${HOSTNAME}
+	
+	# Reload nginx
+	/usr/bin/php /root/watch.php
 	
 	echo "Ok"
 	sleep 5

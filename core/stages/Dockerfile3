@@ -1,14 +1,21 @@
-FROM bayrell/core:stage2
-
-ADD files/etc /etc
-ADD files/app /var/www/app
-ADD files/root /root
-
+FROM bayrell/core:stage_os_packages
 
 RUN cd ~; \
-	chmod +x /root/consul.sh; \
-	chmod +x /root/run.sh; \
+	echo "[1] Settings PHP"; \
+	mkdir -p /var/www/html; \
+	mkdir -p /var/www/html/.well-known; \
+	sed -i "s|;date.timezone =|date.timezone = Asia/Almaty|g" /etc/opt/remi/php71/php.ini; \
+	sed -i "s|listen =.*|listen = /var/run/php71-fpm.sock|g" /etc/opt/remi/php71/php-fpm.d/www.conf; \
+	sed -i "s|;listen.owner =.*|listen.owner = nginx|g" /etc/opt/remi/php71/php-fpm.d/www.conf; \
+	sed -i "s|;listen.group =.*|listen.group = nginx|g" /etc/opt/remi/php71/php-fpm.d/www.conf; \
+	sed -i "s|;listen.mode =.*|listen.mode = 0660|g" /etc/opt/remi/php71/php-fpm.d/www.conf; \
+	sed -i "s|php_admin_value[error_log] =.*|php_admin_value[error_log] = /dev/stderr|g" /etc/opt/remi/php71/php-fpm.d/www.conf; \
+	echo 'env[NODE_ID] = $NODE_ID' >> /etc/opt/remi/php71/php-fpm.d/www.conf; \
+	echo 'env[TASK_ID] = $TASK_ID' >> /etc/opt/remi/php71/php-fpm.d/www.conf; \
+	echo 'env[HOSTNAME] = $HOSTNAME' >> /etc/opt/remi/php71/php-fpm.d/www.conf; \
+	echo 'env[SERVICE_ID] = $SERVICE_ID' >> /etc/opt/remi/php71/php-fpm.d/www.conf; \
+	echo 'env[SERVICE_NAME] = $SERVICE_NAME' >> /etc/opt/remi/php71/php-fpm.d/www.conf; \
+	echo 'env[SERVICE_TAGS] = $SERVICE_TAGS' >> /etc/opt/remi/php71/php-fpm.d/www.conf; \
+	echo 'env[ROUTE_PREFIX] = $ROUTE_PREFIX' >> /etc/opt/remi/php71/php-fpm.d/www.conf; \
+	echo 'env[MAIN_CLASS] = $MAIN_CLASS' >> /etc/opt/remi/php71/php-fpm.d/www.conf; \
 	echo "Ok"
-
-EXPOSE 80
-CMD ["/root/run.sh"]

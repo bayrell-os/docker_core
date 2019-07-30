@@ -8,34 +8,39 @@ RETVAL=0
 
 case "$1" in
 	
-	stage0)
-		docker build ./ -t bayrell/core:stage0 --file stages/Dockerfile0
+	stage_os_install)
+		docker build ./ -t bayrell/core:stage_os_install --file stages/Dockerfile0
 		cd ..
 	;;
 
-	stage1)
-		docker build ./ -t bayrell/core:stage1 --file stages/Dockerfile1
+	stage_os_update)
+		docker build ./ -t bayrell/core:stage_os_update --file stages/Dockerfile1
 		cd ..
 	;;
 	
-	stage2)
-		docker build ./ -t bayrell/core:stage2 --file stages/Dockerfile2
+	stage_os_packages)
+		docker build ./ -t bayrell/core:stage_os_packages --file stages/Dockerfile2
 		cd ..
 	;;
 	
-	stage3)
-		docker build ./ -t bayrell/core:stage3 --file stages/Dockerfile3
-		docker tag bayrell/core:stage3 172.20.10.25/bayrell_core:latest
+	stage_os_etc)
+		docker build ./ -t bayrell/core:stage_os_etc --file stages/Dockerfile3
+		cd ..
+	;;
+	
+	stage_project)
+		docker build ./ -t bayrell/core:stage_project --file stages/Dockerfile4
+		docker tag bayrell/core:stage_project 172.20.10.25/bayrell_core:latest
 		cd ..
 	;;
 	
 	final)
-		docker tag bayrell/core:stage3 172.20.10.25/bayrell_core:latest
+		docker tag bayrell/core:stage_project 172.20.10.25/bayrell_core:latest
 		cd ..
 	;;
 	
 	*)
-		echo "Usage: $0 {stage0|stage1|stage2|stage3|final}"
+		echo "Usage: $0 {stage_os_install|stage_os_update|stage_os_packages|stage_os_etc|stage_project|final}"
 		RETVAL=1
 
 esac
